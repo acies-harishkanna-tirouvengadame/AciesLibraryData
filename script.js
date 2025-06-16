@@ -106,20 +106,27 @@ let assets = [
 
 document.getElementById("app").innerText = "Loading assets...";
 
-// Show default list first
+// Render initial assets
 renderAssets();
 
-// Then fetch from sheet and overwrite
+// Fetch from sheet and overwrite if valid
 fetchAssets();
 
 async function fetchAssets() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
-    assets = data;
-    renderAssets(); // Overwrite with fresh data
+
+    // Check if valid data format
+    if (Array.isArray(data) && data.length && data[0].id !== undefined) {
+      console.log("✅ Fetched assets from Google Sheet:", data);
+      assets = data;
+      renderAssets();
+    } else {
+      console.warn("⚠️ Sheet data is invalid or missing. Using default assets.");
+    }
   } catch (err) {
-    console.error("Failed to fetch assets:", err);
+    console.error("❌ Failed to fetch assets from Google Sheet:", err);
     document.getElementById("app").innerText = "⚠️ Failed to load assets from Google Sheet.";
   }
 }
@@ -131,20 +138,25 @@ function renderAssets() {
     <div class="container">
       ${assets.map(asset => `
         <div class="asset">
-          <div><strong>${asset.name}</strong> (${asset.type})</div>
-          <div>Status: <em>${asset.status}</em></div>
-          ${asset.status === "Issued" ? `<div>With: ${asset.user} until ${asset.returnDate}</div>` : ""}
-          <button onclick="toggleStatus(${asset.id})">
+          <div><strong>${asset.name || "N/A"}</strong> (${asset.type || "N/A"})</div>
+          <div>Status: <em>${asset.status || "N/A"}</em></div>
+          ${asset.status === "Issued" ? `<div>With: ${asset.user || "Unknown"} until ${asset.returnDate || "Unknown"}</div>` : ""}
+          <button onclick="toggleStatus('${asset.id}')">
             ${asset.status === "Available" ? "Issue" : "Return"}
           </button>
         </div>
-      `).join('')}
+      `).join("")}
     </div>
   `;
 }
 
 function toggleStatus(id) {
   const asset = assets.find(a => String(a.id) === String(id));
+
+  if (!asset) {
+    alert("❗ Asset not found.");
+    return;
+  }
 
   if (asset.status === "Available") {
     const user = prompt("Enter your name:");
@@ -180,6 +192,6 @@ function postToSheet(asset) {
     },
     body: JSON.stringify(asset)
   })
-  .then(res => console.log("POST success"))
-  .catch(err => console.error("POST failed", err));
+    .then(() => console.log("✅ POST success:", asset))
+    .catch(err => console.error("❌ POST failed", err));
 }
