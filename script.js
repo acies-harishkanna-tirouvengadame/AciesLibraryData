@@ -97,7 +97,12 @@
 // renderAssets();
 
 const API_URL = "https://script.google.com/macros/s/AKfycbwzXLm5Lx1XyjJ8cwXAIZ3iLK_aR0m_T1Lbt843ypZRL3reE4OaeqrRh1KL5ds-cKHNgw/exec";
-let assets = [];
+const assets = [
+  { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
+  { id: 2, name: "Smart Swarm", type: "Book", status: "Available", user: "", returnDate: "" },
+  { id: 3, name: "The Art of Thinking Clearly", type: "Book", status: "Available", user: "", returnDate: "" },
+];
+// let assets = [];
 
 async function fetchAssets() {
   try {
