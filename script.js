@@ -1,5 +1,5 @@
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzAE7pKleaknGGJvUXq2Kdhdi2dCzrlP4SU_qLm2t60W6OIjXIaMh8sNiWOxudPjTOPCA/exec";
+// const API_URL = "https://script.google.com/macros/s/AKfycbzAE7pKleaknGGJvUXq2Kdhdi2dCzrlP4SU_qLm2t60W6OIjXIaMh8sNiWOxudPjTOPCA/exec";
 
 // const assets = [
 //   { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
@@ -96,7 +96,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbzAE7pKleaknGGJvUXq2Kdh
 
 // renderAssets();
 
-
+const API_URL = "https://script.google.com/macros/s/AKfycbzAE7pKleaknGGJvUXq2Kdhdi2dCzrlP4SU_qLm2t60W6OIjXIaMh8sNiWOxudPjTOPCA/exec";
 let assets = [];
 
 async function fetchAssets() {
