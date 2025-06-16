@@ -96,7 +96,7 @@
 
 // renderAssets();
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzAE7pKleaknGGJvUXq2Kdhdi2dCzrlP4SU_qLm2t60W6OIjXIaMh8sNiWOxudPjTOPCA/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwzXLm5Lx1XyjJ8cwXAIZ3iLK_aR0m_T1Lbt843ypZRL3reE4OaeqrRh1KL5ds-cKHNgw/exec";
 let assets = [];
 
 async function fetchAssets() {
