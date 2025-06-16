@@ -3,7 +3,7 @@ const API_URL = "https://script.google.com/a/macros/aciesglobal.com/s/AKfycbyJrv
 
 const assets = [
   { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
-  { id: 2, name: "Smart Swarm", type: "Book", status: "Issued", user: "Anil", returnDate: "2025-06-20" },
+  { id: 2, name: "Smart Swarm", type: "Book", status: "Available", user: "", returnDate: "" },
   { id: 3, name: "The Art of Thinking Clearly", type: "Book", status: "Available", user: "", returnDate: "" },
 ];
 
