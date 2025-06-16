@@ -97,22 +97,30 @@
 // renderAssets();
 
 const API_URL = "https://script.google.com/macros/s/AKfycbwzXLm5Lx1XyjJ8cwXAIZ3iLK_aR0m_T1Lbt843ypZRL3reE4OaeqrRh1KL5ds-cKHNgw/exec";
-const assets = [
+
+let assets = [
   { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
   { id: 2, name: "Smart Swarm", type: "Book", status: "Available", user: "", returnDate: "" },
   { id: 3, name: "The Art of Thinking Clearly", type: "Book", status: "Available", user: "", returnDate: "" },
 ];
-// let assets = [];
+
+document.getElementById("app").innerText = "Loading assets...";
+
+// Show default list first
+renderAssets();
+
+// Then fetch from sheet and overwrite
+fetchAssets();
 
 async function fetchAssets() {
   try {
     const res = await fetch(API_URL);
     const data = await res.json();
     assets = data;
-    renderAssets();
+    renderAssets(); // Overwrite with fresh data
   } catch (err) {
     console.error("Failed to fetch assets:", err);
-    document.getElementById("app").innerText = "Failed to load assets.";
+    document.getElementById("app").innerText = "⚠️ Failed to load assets from Google Sheet.";
   }
 }
 
@@ -175,7 +183,3 @@ function postToSheet(asset) {
   .then(res => console.log("POST success"))
   .catch(err => console.error("POST failed", err));
 }
-
-
-document.getElementById("app").innerText = "Loading assets...";
-fetchAssets();
