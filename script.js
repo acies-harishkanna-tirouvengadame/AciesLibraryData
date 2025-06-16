@@ -26,25 +26,61 @@ function renderAssets() {
   `;
 }
 
+// function toggleStatus(id) {
+//   const asset = assets.find(a => a.id === id);
+//   if (asset.status === "Available") {
+//     const user = prompt("Enter your name:");
+//     if (!user) return;
+//     const returnDate = prompt("Enter return date (DD-MM-YYYY):");
+//     if (!returnDate) return;
+//     asset.status = "Issued";
+//     asset.user = user;
+//     asset.returnDate = returnDate;
+//     postToSheet(asset);
+//   } else {
+//     asset.status = "Available";
+//     asset.user = "";
+//     asset.returnDate = "";
+//     postToSheet(asset);
+//   }
+//   renderAssets();
+// }
+
 function toggleStatus(id) {
   const asset = assets.find(a => a.id === id);
+
   if (asset.status === "Available") {
     const user = prompt("Enter your name:");
-    if (!user) return;
+
+    if (!user || user.trim() === "") {
+      alert("❗ Name is required to issue an asset.");
+      console.log("⚠️ No user provided, canceling post.");
+      return;
+    }
+
     const returnDate = prompt("Enter return date (DD-MM-YYYY):");
-    if (!returnDate) return;
+    if (!returnDate || returnDate.trim() === "") {
+      alert("❗ Return date is required.");
+      return;
+    }
+
     asset.status = "Issued";
-    asset.user = user;
-    asset.returnDate = returnDate;
+    asset.user = user.trim();
+    asset.returnDate = returnDate.trim();
+
+    console.log("✅ Data captured:", asset); // <--- SEE HERE
     postToSheet(asset);
   } else {
     asset.status = "Available";
     asset.user = "";
     asset.returnDate = "";
+    console.log("🔄 Returning asset:", asset);
     postToSheet(asset);
   }
+
   renderAssets();
 }
+
 
 function postToSheet(asset) {
   console.log("Sending to sheet:", asset);
