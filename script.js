@@ -1,5 +1,5 @@
 
-const API_URL = "https://script.google.com/a/macros/aciesglobal.com/s/AKfycbyJrvRkFlGGimgrGIvOKAP8rzMOHtMN1WPo-MHUfiDHd0s7a_btmQQDcv5EjeqiTgJ2Og/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbyJrvRkFlGGimgrGIvOKAP8rzMOHtMN1WPo-MHUfiDHd0s7a_btmQQDcv5EjeqiTgJ2Og/exec";
 
 const assets = [
   { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
