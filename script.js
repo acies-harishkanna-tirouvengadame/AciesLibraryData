@@ -131,7 +131,7 @@ function renderAssets() {
 }
 
 function toggleStatus(id) {
-  const asset = assets.find(a => a.id === id);
+  const asset = assets.find(a => String(a.id) === String(id));
 
   if (asset.status === "Available") {
     const user = prompt("Enter your name:");
@@ -161,7 +161,7 @@ function toggleStatus(id) {
 function postToSheet(asset) {
   fetch(API_URL, {
     method: "POST",
-    mode: "no-cors",
+    mode: "cors",
     headers: {
       "Content-Type": "application/json",
     },
@@ -169,4 +169,5 @@ function postToSheet(asset) {
   });
 }
 
+document.getElementById("app").innerText = "Loading assets...";
 fetchAssets();
