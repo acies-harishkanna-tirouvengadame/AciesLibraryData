@@ -31,7 +31,7 @@ function toggleStatus(id) {
   if (asset.status === "Available") {
     const user = prompt("Enter your name:");
     if (!user) return;
-    const returnDate = prompt("Enter return date (YYYY-MM-DD):");
+    const returnDate = prompt("Enter return date (DD-MM-YYYY):");
     if (!returnDate) return;
     asset.status = "Issued";
     asset.user = user;
