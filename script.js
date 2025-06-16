@@ -166,8 +166,11 @@ function postToSheet(asset) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(asset)
-  });
+  })
+  .then(res => console.log("POST success"))
+  .catch(err => console.error("POST failed", err));
 }
+
 
 document.getElementById("app").innerText = "Loading assets...";
 fetchAssets();
