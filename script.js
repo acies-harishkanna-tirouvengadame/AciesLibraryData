@@ -1,7 +1,10 @@
+
+const API_URL = "https://script.google.com/a/macros/aciesglobal.com/s/AKfycbyJrvRkFlGGimgrGIvOKAP8rzMOHtMN1WPo-MHUfiDHd0s7a_btmQQDcv5EjeqiTgJ2Og/exec";
+
 const assets = [
-  { id: 1, name: "Finance Sense", type: "Book", status: "Available", borrowedBy: "", returnDate: "" },
-  { id: 2, name: "Smart Swarm", type: "Book", status: "Issued", borrowedBy: "Alice", returnDate: "2025-06-20" },
-  { id: 3, name: "The Art of Thinking Clearly", type: "Book", status: "Available", borrowedBy: "", returnDate: "" },
+  { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
+  { id: 2, name: "Smart Swarm", type: "Book", status: "Issued", user: "Anil", returnDate: "2025-06-20" },
+  { id: 3, name: "The Art of Thinking Clearly", type: "Book", status: "Available", user: "", returnDate: "" },
 ];
 
 function renderAssets() {
@@ -11,10 +14,9 @@ function renderAssets() {
     <div class="container">
       ${assets.map(asset => `
         <div class="asset">
-          <div>
-            <strong>${asset.name}</strong> (${asset.type}) - <em>${asset.status}</em>
-            ${asset.status === "Issued" ? `<br><small>Borrowed by: ${asset.borrowedBy}, Due: ${asset.returnDate}</small>` : ""}
-          </div>
+          <div><strong>${asset.name}</strong> (${asset.type})</div>
+          <div>Status: <em>${asset.status}</em></div>
+          ${asset.status === "Issued" ? `<div>With: ${asset.user} until ${asset.returnDate}</div>` : ""}
           <button onclick="toggleStatus(${asset.id})">
             ${asset.status === "Available" ? "Issue" : "Return"}
           </button>
@@ -24,32 +26,35 @@ function renderAssets() {
   `;
 }
 
-const API_URL = "https://script.google.com/a/macros/aciesglobal.com/s/AKfycbyJrvRkFlGGimgrGIvOKAP8rzMOHtMN1WPo-MHUfiDHd0s7a_btmQQDcv5EjeqiTgJ2Og/exec"; // ← replace this with your Apps Script URL
-
 function toggleStatus(id) {
   const asset = assets.find(a => a.id === id);
-  
   if (asset.status === "Available") {
-    const name = prompt("Enter borrower's name:");
-    if (!name) return;
-    const today = new Date();
-    const returnDate = new Date(today.setDate(today.getDate() + 7)).toISOString().split('T')[0];
-
+    const user = prompt("Enter your name:");
+    if (!user) return;
+    const returnDate = prompt("Enter return date (YYYY-MM-DD):");
+    if (!returnDate) return;
     asset.status = "Issued";
-    asset.borrowedBy = name;
+    asset.user = user;
     asset.returnDate = returnDate;
+    postToSheet(asset);
   } else {
     asset.status = "Available";
-    asset.borrowedBy = "";
+    asset.user = "";
     asset.returnDate = "";
+    postToSheet(asset);
   }
-
-  // Send to Google Sheets
-  fetch(API_URL, {
-    method: "POST",
-    contentType: "application/json",
-    body: JSON.stringify(asset),
-  });
-
   renderAssets();
 }
+
+function postToSheet(asset) {
+  fetch(API_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(asset)
+  });
+}
+
+renderAssets();
