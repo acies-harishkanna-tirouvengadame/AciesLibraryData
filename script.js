@@ -96,7 +96,7 @@
 
 // renderAssets();
 
-const API_URL = "https://script.google.com/macros/s/AKfycbwzXLm5Lx1XyjJ8cwXAIZ3iLK_aR0m_T1Lbt843ypZRL3reE4OaeqrRh1KL5ds-cKHNgw/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxXpURbJzHKm2cIEO2zHMZeecYB8wjeolg9h1CrFng43D28r85xRwEXg8eOi6iuitrDPg/exec";
 
 let assets = [
   { id: 1, name: "Finance Sense", type: "Book", status: "Available", user: "", returnDate: "" },
