@@ -117,14 +117,17 @@ async function fetchAssets() {
     const res = await fetch(API_URL);
     const data = await res.json();
 
-    // Check if valid data format
-    if (Array.isArray(data) && data.length && data[0].id !== undefined) {
-      console.log("✅ Fetched assets from Google Sheet:", data);
-      assets = data;
-      renderAssets();
-    } else {
-      console.warn("⚠️ Sheet data is invalid or missing. Using default assets.");
-    }
+    // Map Google Sheet keys to internal keys
+    assets = data.map(item => ({
+      id: item.ID,
+      name: item.Name,
+      type: item.Type,
+      status: item.Status,
+      user: item.User || "",
+      returnDate: item["Return Date"] || ""
+    }));
+
+    renderAssets();
   } catch (err) {
     console.error("❌ Failed to fetch assets from Google Sheet:", err);
     document.getElementById("app").innerText = "⚠️ Failed to load assets from Google Sheet.";
