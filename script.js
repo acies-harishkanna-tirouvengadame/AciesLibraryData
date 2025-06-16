@@ -47,6 +47,7 @@ function toggleStatus(id) {
 }
 
 function postToSheet(asset) {
+  console.log("Sending to sheet:", asset);
   fetch(API_URL, {
     method: "POST",
     mode: "no-cors",
